@@ -10,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -31,8 +34,12 @@ class JokeServiceTest {
     private String jokeContent;
     private JokeType jokeType;
 
+
+    //CREATE
+
+
     @BeforeEach
-    public void setup() {
+    public void save_validJoke_returnsJoke() {
         //Setup
         jokeContent = "Most interesting man in the world: " +
                 "\"I don't always connect to the database for testing...." +
@@ -49,21 +56,32 @@ class JokeServiceTest {
                 "but when I do, it shuts our production environment down.\" ;) ";
         jokeType = JokeType.TECHNOLOGY;
         joke3 = new Joke(jokeType, jokeContent);
+        //Exercise
+        Joke actual1 = jokeService.save(joke1);
+        Joke actual2 = jokeService.save(joke2);
+        Joke actual3 = jokeService.save(joke3);
+        //Assert
+        assertEquals(joke1.hashCode(), actual1.hashCode());
+        assertEquals(joke2.hashCode(), actual2.hashCode());
+        assertEquals(joke3.hashCode(), actual3.hashCode());
 
     }
 
 
-    //CREATE
+    //READ
 
 
     @Test
-    public void save_validJoke_returnsJoke() {
+    public void findAll_daoWithExistingJokes_returnsJokeList() {
         //Setup
-        Joke actual = jokeService.save(joke1);
+        List<Joke> expected = new ArrayList<>();
+        expected.add(joke1);
+        expected.add(joke2);
+        expected.add(joke3);
         //Exercise
-
+        List<Joke> actual = jokeService.findAll();
         //Assert
-        assertEquals(joke1.hashCode(), actual.hashCode());
+        assertEquals(expected, actual);
         //Teardown
     }
 

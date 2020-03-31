@@ -4,6 +4,8 @@ import com.example.joke.entities.Joke;
 import com.example.joke.repositories.JokeDao;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JokeService {
     private JokeDao jokeDao;
@@ -14,5 +16,9 @@ public class JokeService {
 
     public Joke save(Joke joke) {
         return jokeDao.save(joke);
+    }
+
+    public List<Joke> findAll() {
+        return jokeDao.findAll();
     }
 }
