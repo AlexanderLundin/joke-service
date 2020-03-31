@@ -85,4 +85,18 @@ class JokeServiceTest {
         //Teardown
     }
 
+    @Test
+    public void findAllByJokeType_daoWithExistingJokes_returnsJokeList() {
+        //Setup
+        List<Joke> expected = new ArrayList<>();
+        expected.add(joke1);
+        expected.add(joke2);
+        expected.add(joke3);
+        //Exercise
+        List<Joke> actual = jokeService.findAllByJokeType(JokeType.TECHNOLOGY);
+        //Assert
+        assertEquals(expected, actual);
+        //Teardown
+    }
+
 }
