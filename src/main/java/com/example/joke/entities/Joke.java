@@ -20,6 +20,15 @@ public class Joke {
         this.jokeContent = jokeContent;
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public JokeType getJokeType() {
         return jokeType;
     }
@@ -35,5 +44,4 @@ public class Joke {
     public void setJokeContent(String jokeContent) {
         this.jokeContent = jokeContent;
     }
-
 }
