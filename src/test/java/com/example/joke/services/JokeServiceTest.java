@@ -112,4 +112,17 @@ class JokeServiceTest {
         //Teardown
     }
 
+    @Test
+    public void findAllBySearchStringAndNullJokeType_daoWithExistingJokes_returnsJokeList() {
+        //Setup
+        List<Joke> expected = new ArrayList<>();
+        expected.add(joke1);
+        //Exercise
+        String searchString = "database";
+        List<Joke> actual = jokeService.findAllBySearchStringAndJokeType(searchString, null);
+        //Assert
+        assertEquals(expected, actual);
+        //Teardown
+    }
+
 }

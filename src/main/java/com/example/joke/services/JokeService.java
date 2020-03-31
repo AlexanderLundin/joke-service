@@ -30,6 +30,11 @@ public class JokeService {
     }
 
     public List<Joke> findAllBySearchStringAndJokeType(String searchString, JokeType jokeType) {
-        return jokeDao.findAllBySearchStringAndJokeType(searchString, jokeType);
+        if(jokeType != null){
+            return jokeDao.findAllBySearchStringAndJokeType(searchString, jokeType);
+        }else{
+            return jokeDao.findAllBySearchString(searchString);
+        }
+
     }
 }
