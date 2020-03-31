@@ -26,4 +26,19 @@ class JokeTest {
         //Teardown
     }
 
+    @Test
+    public void jokeSettersAndGetters() {
+        //Setup
+        Joke joke = new Joke();
+        String jokeContent = "Most interesting man in the world: \"I don't always use dependency injection....but when I do, I use field injection.\" ;) ";
+        JokeType jokeType = JokeType.TECHNOLOGY;
+        //Exercise
+        joke.setJokeContent(jokeContent);
+        joke.setJokeType(jokeType);
+        //Assert
+        assertEquals(jokeContent, joke.getJokeContent());
+        assertEquals(jokeType, joke.getJokeType());
+        //Teardown
+    }
+
 }
