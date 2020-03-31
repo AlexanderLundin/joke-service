@@ -73,7 +73,8 @@ public class JokeService {
         }
 
         if (jokeDao.existsById(randomId)){
-            return jokeDao.findById(randomId).get();
+            //return jokeDao.findById(randomId).get();
+            return jokeDao.findRandomJoke(jokeType);
         }else{
             return null;
         }
