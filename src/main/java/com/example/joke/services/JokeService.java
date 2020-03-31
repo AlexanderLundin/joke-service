@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class JokeService {
@@ -34,6 +36,30 @@ public class JokeService {
             return jokeDao.findAllBySearchStringAndJokeType(searchString, jokeType);
         }else{
             return jokeDao.findAllBySearchString(searchString);
+        }
+
+    }
+
+    public Joke findRandomJoke(JokeType jokeType) {
+        Long count;
+        Long randomId;
+        if(jokeType != null){
+            List<Joke> jokeList = jokeDao.findAllByJokeType(jokeType);
+            // store id fields of jokes by mapping with the getId method
+            List<Long> idList = jokeList.stream().map(Joke::getId).collect(Collectors.toList());
+            Random rand = new Random();
+            randomId = idList.get(rand.nextInt(idList.size()));
+        }else{
+            count = jokeDao.count();
+            long leftLimit = 1L;
+            long rightLimit = count;
+            randomId = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+        }
+
+        if (jokeDao.existsById(randomId)){
+            return jokeDao.findById(randomId).get();
+        }else{
+            return null;
         }
 
     }

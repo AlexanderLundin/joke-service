@@ -146,4 +146,14 @@ class JokeServiceTest {
         //Teardown
     }
 
+    @Test
+    public void findRandomJoke_daoWithExistingJokes_returnsJoke() {
+        //Setup
+        //Exercise
+        Joke actual = jokeService.findRandomJoke(JokeType.TECHNOLOGY);
+        //Assert
+        assertNotNull(actual);
+        //Teardown
+    }
+
 }
