@@ -1,6 +1,7 @@
 package com.example.joke.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "jokes")
@@ -43,5 +44,20 @@ public class Joke {
 
     public void setJokeContent(String jokeContent) {
         this.jokeContent = jokeContent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Joke)) return false;
+        Joke joke = (Joke) o;
+        return Objects.equals(id, joke.id) &&
+                jokeType == joke.jokeType &&
+                Objects.equals(jokeContent, joke.jokeContent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, jokeType, jokeContent);
     }
 }

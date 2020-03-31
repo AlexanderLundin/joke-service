@@ -30,7 +30,7 @@ public class JokeService {
 
     //READ
 
-    
+
     public List<Joke> findAll() {
         return jokeDao.findAll();
     }
@@ -70,5 +70,18 @@ public class JokeService {
             return null;
         }
 
+    }
+
+
+    //UPDATE
+
+
+    public Joke updateJokeById(Long id, Joke joke) {
+        if (jokeDao.existsById(id)){
+            joke.setId(id);
+            return jokeDao.saveAndFlush(joke);
+        }else{
+            return null;
+        }
     }
 }

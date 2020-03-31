@@ -156,4 +156,19 @@ class JokeServiceTest {
         //Teardown
     }
 
+
+    //UPDATE
+
+    @Test
+    public void updateJokeById_daoWithJoke_returnsJoke() {
+        //Setup
+        Long id = 1L;
+        Joke expected = new Joke();
+        //Exercise
+        Joke actual = jokeService.updateJokeById(id, expected);
+        //Assert
+        assertTrue(expected.equals(actual));
+        //Teardown
+    }
+
 }
