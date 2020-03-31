@@ -19,10 +19,18 @@ public class JokeService {
         this.jokeDao = jokeDao;
     }
 
+
+    //CREATE
+
+
     public Joke save(Joke joke) {
         return jokeDao.save(joke);
     }
 
+
+    //READ
+
+    
     public List<Joke> findAll() {
         return jokeDao.findAll();
     }
