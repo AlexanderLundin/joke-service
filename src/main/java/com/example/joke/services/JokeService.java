@@ -28,4 +28,8 @@ public class JokeService {
     public List<Joke> findAllByJokeType(JokeType jokeType) {
         return jokeDao.findAllByJokeType(jokeType);
     }
+
+    public List<Joke> findAllBySearchStringAndJokeType(String searchString, JokeType jokeType) {
+        return jokeDao.findAllBySearchStringAndJokeType(searchString, jokeType);
+    }
 }
