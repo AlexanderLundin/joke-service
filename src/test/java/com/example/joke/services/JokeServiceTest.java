@@ -110,8 +110,8 @@ class JokeServiceTest {
     @Test
     public void findById_daoWithExistingJokes_returnsJokeList() {
         //Setup
-        Long id = 6L;
         Joke expected = joke1;
+        Long id = joke1.getId();
         //Exercise
         Joke actual = jokeService.findById(id);
         //Assert
@@ -172,16 +172,20 @@ class JokeServiceTest {
 
     //UPDATE
 
+
     @Test
     public void updateJokeById_daoWithJoke_returnsJoke() {
         //Setup
-        Long id = 6L;
         Joke expected = new Joke();
         //Exercise
+        Joke newJoke = jokeService.save(expected);
+        Long id = newJoke.getId();
+        newJoke.setJokeType(JokeType.KNOCKKNOCK);
         Joke actual = jokeService.updateJokeById(id, expected);
         //Assert
-        assertTrue(expected.equals(actual));
+        assertEquals(JokeType.KNOCKKNOCK, actual.getJokeType());
         //Teardown
+        jokeService.delete(id);
     }
 
 
