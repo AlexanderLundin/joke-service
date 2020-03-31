@@ -38,6 +38,7 @@ class JokeServiceTest {
     private JokeType jokeType;
     private List<Joke> jokeList;
 
+
     //CREATE
 
 
@@ -107,6 +108,18 @@ class JokeServiceTest {
     }
 
     @Test
+    public void findById_daoWithExistingJokes_returnsJokeList() {
+        //Setup
+        Long id = 6L;
+        Joke expected = joke1;
+        //Exercise
+        Joke actual = jokeService.findById(id);
+        //Assert
+        assertEquals(expected.hashCode(), actual.hashCode());
+        //Teardown
+    }
+
+    @Test
     public void findAllByJokeType_daoWithExistingJokes_returnsJokeList() {
         //Setup
         List<Joke> expected = new ArrayList<>();
@@ -162,7 +175,7 @@ class JokeServiceTest {
     @Test
     public void updateJokeById_daoWithJoke_returnsJoke() {
         //Setup
-        Long id = 1L;
+        Long id = 6L;
         Joke expected = new Joke();
         //Exercise
         Joke actual = jokeService.updateJokeById(id, expected);
@@ -171,4 +184,19 @@ class JokeServiceTest {
         //Teardown
     }
 
+
+    //DELETE
+
+    @Test
+    public void deleteById_doaWithJoke_returnsVoid() {
+        //Setup
+        Joke joke = new Joke();
+        joke = jokeService.save(joke);
+        Long id = joke.getId();
+        //Exercise
+        jokeService.delete(id);
+        Joke actual = jokeService.findById(id);
+        //Assert
+        assertNull(actual);
+    }
 }

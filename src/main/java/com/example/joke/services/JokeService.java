@@ -35,6 +35,14 @@ public class JokeService {
         return jokeDao.findAll();
     }
 
+    public Joke findById(Long id) {
+        if (jokeDao.existsById(id)){
+            return jokeDao.findById(id).get();
+        }else{
+            return null;
+        }
+    }
+
     public List<Joke> findAllByJokeType(JokeType jokeType) {
         return jokeDao.findAllByJokeType(jokeType);
     }
@@ -82,6 +90,16 @@ public class JokeService {
             return jokeDao.saveAndFlush(joke);
         }else{
             return null;
+        }
+    }
+
+
+    //DELETE
+
+
+    public void delete(Long id) {
+        if (jokeDao.existsById(id)) {
+            jokeDao.deleteById(id);
         }
     }
 }
