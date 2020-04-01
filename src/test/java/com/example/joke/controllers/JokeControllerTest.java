@@ -23,8 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -163,4 +162,29 @@ class JokeControllerTest {
         assertEquals(3, actual.size());
         //Teardown
     }
+
+
+    //UPDATE
+
+
+    @Test
+    public void patchJoke_daoWithThisJokeExisting_returnsJoke() throws Exception {
+        //Setup
+        String url = "/api/jokes/1";
+        Joke expected = new Joke();
+        //Exercise
+        ResultActions resultActions = mvc.perform(patch(url)
+                .content(objectMapper.writeValueAsString(expected))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk());
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
+        //Assert
+        assertNotNull(actual.equals(expected));
+        //Teardown
+    }
+
 }

@@ -38,4 +38,13 @@ public class JokeController {
     public List<Joke> getAllJokesByCategory(@PathVariable JokeType jokeType){
         return jokeService.findAllByJokeType(jokeType);
     }
+
+
+    //UPDATE
+
+
+    @PatchMapping("/jokes/{id}")
+    public Joke patchJoke(@PathVariable Long id, @RequestBody Joke joke){
+        return jokeService.updateJokeById(id, joke);
+    }
 }
