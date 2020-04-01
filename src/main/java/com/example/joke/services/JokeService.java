@@ -57,14 +57,23 @@ public class JokeService {
     }
 
     public Joke findRandomJoke(JokeType jokeType) {
+        Long randomId;
         if(jokeType != null){
-            //bonus feature
-            //return jokeDao.findRandomJokeByCategory(jokeType.toString());
-            return null;
+            List<Joke> jokeList = jokeDao.findAllByJokeType(jokeType);
+            // store id fields of jokes by mapping with the getId method
+            List<Long> idList = jokeList.stream().map(Joke::getId).collect(Collectors.toList());
+            Random rand = new Random();
+            randomId = idList.get(rand.nextInt(idList.size()));
+            if (jokeDao.existsById(randomId)){
+                return jokeDao.findById(randomId).get();
+            }else{
+                return null;
+            }
         }else{
             return jokeDao.findRandomJoke();
         }
     }
+
 
 
     //UPDATE
