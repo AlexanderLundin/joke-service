@@ -20,8 +20,8 @@ public interface JokeDao extends JpaRepository<Joke, Long> {
     List<Joke> findAllBySearchString(String searchString);
 
     //bonus feature
-//    @Query(value = "SELECT * FROM jokes j WHERE jokeType LIKE ?1 order by RAND() LIMIT 1", nativeQuery= true)
-//    Joke findRandomJoke(String jokeType);
+//    @Query(value = "select * from jokes j where joke_type LIKE ?1 order by RAND() LIMIT 1", nativeQuery = true)
+//    Joke findRandomJokeByCategory(String category);
 
     @Query(value = "select * from jokes j order by RAND() LIMIT 1", nativeQuery= true)
     Joke findRandomJoke();
