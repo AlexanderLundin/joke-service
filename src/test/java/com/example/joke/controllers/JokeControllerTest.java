@@ -105,6 +105,10 @@ class JokeControllerTest {
         assertEquals(joke6.hashCode(), actual6.hashCode());
     }
 
+
+    //READ
+
+
     @Test
     public void getAllJokes_daoWithJokes_returnsJokeList() throws Exception {
         //Setup
@@ -117,6 +121,20 @@ class JokeControllerTest {
         List<Joke> actual = Arrays.asList(objectMapper.readValue(contentAsString, Joke[].class));
         //Assert
         assertEquals(expected, actual);
+        //Teardown
+    }
+
+    @Test
+    public void getAllJokesByCategory_daoWithJokes_returnsJokeList() throws Exception {
+        //Setup
+        String url = "/api/jokes/" + JokeType.TECHNOLOGY;
+        //Exercise
+        ResultActions resultActions = mvc.perform(get(url));
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        List<Joke> actual = Arrays.asList(objectMapper.readValue(contentAsString, Joke[].class));
+        //Assert
+        assertEquals(3, actual.size());
         //Teardown
     }
 }
