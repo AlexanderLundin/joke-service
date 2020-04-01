@@ -4,6 +4,7 @@ import com.example.joke.entities.Joke;
 import com.example.joke.entities.JokeType;
 import com.example.joke.repositories.JokeDao;
 import com.example.joke.services.JokeService;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,28 +178,43 @@ class JokeControllerTest {
         //Teardown
     }
 
+    @Test
+    public void getRandomJokeByOptionalJokeType_jokeTypePresentAndDaoWithJokes_returnsJokeList() throws Exception {
+        //Setup
+        String url = "/api/jokes/random/" + JokeType.TECHNOLOGY;
+        //Exercise
+        ResultActions resultActions = mvc.perform(get(url));
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        //objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
+        //Assert
+        assertEquals(JokeType.TECHNOLOGY, actual.getJokeType());
+        //Teardown
+    }
+
     //UPDATE
 
 
-//    @Test
-//    public void patchJoke_daoWithThisJokeExisting_returnsJoke() throws Exception {
-//        //Setup
-//        String url = "/api/jokes/1";
-//        Joke expected = new Joke();
-//        //Exercise
-//        ResultActions resultActions = mvc.perform(patch(url)
-//                .content(objectMapper.writeValueAsString(expected))
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .accept(MediaType.APPLICATION_JSON_VALUE)
-//        )
-//                .andExpect(status().isOk());
-//        MvcResult result = resultActions.andReturn();
-//        String contentAsString = result.getResponse().getContentAsString();
-//        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
-//        //Assert
-//        assertNotNull(actual.equals(expected));
-//        //Teardown
-//    }
+    @Test
+    public void patchJoke_daoWithThisJokeExisting_returnsJoke() throws Exception {
+        //Setup
+        String url = "/api/jokes/" + joke1.getId();
+        Joke expected = new Joke();
+        //Exercise
+        ResultActions resultActions = mvc.perform(patch(url)
+                .content(objectMapper.writeValueAsString(expected))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk());
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
+        //Assert
+        assertNotNull(actual.equals(expected));
+        //Teardown
+    }
 
 
     //DELETE

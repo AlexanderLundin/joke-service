@@ -19,10 +19,4 @@ public interface JokeDao extends JpaRepository<Joke, Long> {
     @Query("SELECT j FROM Joke j WHERE jokeContent LIKE %?1%")
     List<Joke> findAllBySearchString(String searchString);
 
-    //bonus feature
-//    @Query(value = "select * from jokes j where joke_type LIKE ?1 order by RAND() LIMIT 1", nativeQuery = true)
-//    Joke findRandomJokeByCategory(String category);
-
-    @Query(value = "select * from jokes j order by RAND() LIMIT 1", nativeQuery= true)
-    Joke findRandomJoke();
 }

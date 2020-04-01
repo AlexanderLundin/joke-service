@@ -51,6 +51,10 @@ public class JokeController {
         return jokeService.findAllBySearchStringAndJokeType(searchString, jokeType);
     }
 
+    @GetMapping("/jokes/random/{jokeType}")
+    public Joke getRandomJokeByOptionalJokeType(@PathVariable (required = false) JokeType jokeType){
+        return jokeService.findRandomJoke(jokeType);
+    }
     //UPDATE
 
 
