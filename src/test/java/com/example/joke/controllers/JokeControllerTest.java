@@ -187,4 +187,19 @@ class JokeControllerTest {
         //Teardown
     }
 
+
+    //DELETE
+
+
+    @Test
+    public void deleteJoke_daoWithThisJokeExisting_returnsNull() throws Exception {
+        //Setup
+        String url = "/api/jokes/1";
+        Joke expected = null;
+        //Exercise
+        ResultActions resultActions = mvc.perform(delete(url))
+                .andExpect(status().isOk());
+        //Teardown
+    }
+
 }

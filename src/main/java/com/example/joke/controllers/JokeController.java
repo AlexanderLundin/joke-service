@@ -47,4 +47,13 @@ public class JokeController {
     public Joke patchJoke(@PathVariable Long id, @RequestBody Joke joke){
         return jokeService.updateJokeById(id, joke);
     }
+
+
+    //DELETE
+
+
+    @DeleteMapping("/jokes/{id}")
+    public void deleteJoke(@PathVariable Long id){
+        jokeService.delete(id);
+    }
 }
