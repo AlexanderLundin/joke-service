@@ -16,12 +16,17 @@ EXPOSE 8080
 #
 # Deploy joke service locally
 # $ docker run -p 8080:8080 --rm jokeservice
+#
 # should be available at http://localhost:8080/api/jokes
+# or http://192.168.99.100:8080/api/jokes
+# or whever your docker is set to, use command below to see your docker ip
+# $ docker-machine ip
 #
 # Push to dockerhub
 # $ docker login
-# $ docker tag jokeservice dockerhandle/jokeservice
-# $ docker push dockerhandle/jokeservice
+# $ docker tag jokeservice alundin/jokeservice
+# $ docker push alundin/jokeservice
 #
 # Retrieve the image from docker hub
 # $ docker pull dockerhandle/jokeservice
+# $ docker run -p 8080:8080 --rm alundin/jokeservice
