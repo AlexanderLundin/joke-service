@@ -180,25 +180,25 @@ class JokeControllerTest {
     //UPDATE
 
 
-    @Test
-    public void patchJoke_daoWithThisJokeExisting_returnsJoke() throws Exception {
-        //Setup
-        String url = "/api/jokes/1";
-        Joke expected = new Joke();
-        //Exercise
-        ResultActions resultActions = mvc.perform(patch(url)
-                .content(objectMapper.writeValueAsString(expected))
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-        )
-                .andExpect(status().isOk());
-        MvcResult result = resultActions.andReturn();
-        String contentAsString = result.getResponse().getContentAsString();
-        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
-        //Assert
-        assertNotNull(actual.equals(expected));
-        //Teardown
-    }
+//    @Test
+//    public void patchJoke_daoWithThisJokeExisting_returnsJoke() throws Exception {
+//        //Setup
+//        String url = "/api/jokes/1";
+//        Joke expected = new Joke();
+//        //Exercise
+//        ResultActions resultActions = mvc.perform(patch(url)
+//                .content(objectMapper.writeValueAsString(expected))
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .accept(MediaType.APPLICATION_JSON_VALUE)
+//        )
+//                .andExpect(status().isOk());
+//        MvcResult result = resultActions.andReturn();
+//        String contentAsString = result.getResponse().getContentAsString();
+//        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
+//        //Assert
+//        assertNotNull(actual.equals(expected));
+//        //Teardown
+//    }
 
 
     //DELETE
