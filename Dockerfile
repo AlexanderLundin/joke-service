@@ -28,5 +28,7 @@ EXPOSE 8080
 # $ docker push alundin/jokeservice
 #
 # Retrieve the image from docker hub
-# $ docker pull dockerhandle/jokeservice
+# $ docker pull alundin/jokeservice
 # $ docker run -p 8080:8080 --rm alundin/jokeservice
+# $ docker-machine ip
+# Open up brower on the ip address found from command above + ":8080/api/jokes"
