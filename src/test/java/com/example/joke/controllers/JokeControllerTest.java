@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,6 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -103,6 +105,30 @@ class JokeControllerTest {
         assertEquals(joke4.hashCode(), actual4.hashCode());
         assertEquals(joke5.hashCode(), actual5.hashCode());
         assertEquals(joke6.hashCode(), actual6.hashCode());
+    }
+
+
+    //CREATE
+
+
+    @Test
+    public void postJoke_daoWithoutThisJokeExisting_returnsJoke() throws Exception {
+        //Setup
+        String url = "/api/jokes";
+        Joke expected = new Joke();
+        //Exercise
+        ResultActions resultActions = mvc.perform(post(url)
+                .content(objectMapper.writeValueAsString(expected))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+        )
+                .andExpect(status().isOk());
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        Joke actual = objectMapper.readValue(contentAsString, Joke.class);
+        //Assert
+        assertNotNull(actual.equals(expected));
+        //Teardown
     }
 
 

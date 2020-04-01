@@ -3,10 +3,7 @@ package com.example.joke.controllers;
 import com.example.joke.entities.Joke;
 import com.example.joke.entities.JokeType;
 import com.example.joke.services.JokeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,10 +17,18 @@ public class JokeController {
         this.jokeService = jokeService;
     }
 
+    //CREATE
+
+
+    @PostMapping("/jokes")
+    public Joke postJoke(@RequestBody Joke joke){
+        return jokeService.save(joke);
+    }
+
 
     //READ
 
-    
+
     @GetMapping("/jokes")
     public List<Joke> getAllJokes(){
         return jokeService.findAll();
