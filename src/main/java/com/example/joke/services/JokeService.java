@@ -58,7 +58,9 @@ public class JokeService {
 
     public Joke findRandomJoke(JokeType jokeType) {
         if(jokeType != null){
-            return jokeDao.findRandomJoke(jokeType);
+            //bonus feature
+            //return jokeDao.findRandomJoke(jokeType.toString());
+            return null
         }else{
             return jokeDao.findRandomJoke();
         }

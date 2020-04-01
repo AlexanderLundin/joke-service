@@ -159,6 +159,7 @@ class JokeServiceTest {
         //Teardown
     }
 
+    //bonus feature
 //    @Test
 //    public void findRandomJoke_daoWithExistingJokesByJokeType_returnsJoke() {
 //        //Setup
