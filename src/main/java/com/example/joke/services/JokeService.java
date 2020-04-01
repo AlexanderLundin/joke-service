@@ -3,10 +3,8 @@ package com.example.joke.services;
 import com.example.joke.entities.Joke;
 import com.example.joke.entities.JokeType;
 import com.example.joke.repositories.JokeDao;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -57,22 +55,18 @@ public class JokeService {
     }
 
     public Joke findRandomJoke(JokeType jokeType) {
-        Long count;
         Long randomId;
         List<Joke> jokeList;
         List<Long> idList;
         Random rand = new Random();
         if(jokeType != null){
             jokeList = jokeDao.findAllByJokeType(jokeType);
-            // store id fields of jokes by mapping with the getId method
-            idList = jokeList.stream().map(Joke::getId).collect(Collectors.toList());
-            randomId = idList.get(rand.nextInt(idList.size()));
         }else{
             jokeList = jokeDao.findAll();
-            // store id fields of jokes by mapping with the getId method
-            idList = jokeList.stream().map(Joke::getId).collect(Collectors.toList());
-            randomId = idList.get(rand.nextInt(idList.size()));
         }
+        // store id fields of jokes by mapping with the getId method
+        idList = jokeList.stream().map(Joke::getId).collect(Collectors.toList());
+        randomId = idList.get(rand.nextInt(idList.size()));
 
         if (jokeDao.existsById(randomId)){
             return jokeDao.findById(randomId).get();
