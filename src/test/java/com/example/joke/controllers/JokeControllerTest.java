@@ -163,6 +163,19 @@ class JokeControllerTest {
         //Teardown
     }
 
+    @Test
+    public void getAllJokesWithSearchStringAndCategory_daoWithJokes_returnsJokeList() throws Exception {
+        //Setup
+        String url = "/api/jokes/" + "interesting" + "/" + JokeType.TECHNOLOGY;
+        //Exercise
+        ResultActions resultActions = mvc.perform(get(url));
+        MvcResult result = resultActions.andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        List<Joke> actual = Arrays.asList(objectMapper.readValue(contentAsString, Joke[].class));
+        //Assert
+        assertEquals(3, actual.size());
+        //Teardown
+    }
 
     //UPDATE
 

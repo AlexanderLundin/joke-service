@@ -6,6 +6,7 @@ import com.example.joke.services.JokeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/api")
 @RestController
@@ -39,6 +40,16 @@ public class JokeController {
         return jokeService.findAllByJokeType(jokeType);
     }
 
+    @GetMapping("/jokes/{searchString}/{jokeType}")
+    public List<Joke> getAllJokesByCategoryAndJokeType(@PathVariable String searchString, @PathVariable Optional<JokeType> oJokeType){
+        JokeType jokeType;
+        if (oJokeType.isPresent()) {
+            jokeType = oJokeType.get();
+        }else{
+            jokeType = null;
+        }
+        return jokeService.findAllBySearchStringAndJokeType(searchString, jokeType);
+    }
 
     //UPDATE
 
